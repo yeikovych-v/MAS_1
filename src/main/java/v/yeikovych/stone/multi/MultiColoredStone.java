@@ -4,6 +4,7 @@ import v.yeikovych.stone.AbstractStone;
 import v.yeikovych.stone.RgbColor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static v.yeikovych.stone.RgbColor.isValidRgb;
@@ -21,7 +22,7 @@ public class MultiColoredStone extends AbstractStone {
     }
 
     public List<RgbColor> getColors() {
-        return new ArrayList<>(colors);
+        return Collections.unmodifiableList(colors);
     }
 
     public void setColors(List<RgbColor> colors) {

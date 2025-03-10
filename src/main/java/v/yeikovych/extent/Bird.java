@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.Serial;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static v.yeikovych.util.ValidationUtils.*;
@@ -22,6 +21,9 @@ public class Bird implements Extent {
     private String name;
     private int age;
 
+    public Bird(Bird bird) {
+        this(bird.getName(), bird.getAge());
+    }
 
     public Bird(String name, int age) {
         throwIfAnyFalse(
@@ -37,7 +39,7 @@ public class Bird implements Extent {
     }
 
     public static List<Bird> getExtent() {
-        return new ArrayList<>(birds);
+        return Collections.unmodifiableList(birds);
     }
 
     public int getAge() {
