@@ -37,7 +37,7 @@ public class Bird implements Extent {
     }
 
     public static List<Bird> getExtent() {
-        return birds.stream().map(bird -> new Bird(bird.name, bird.age)).collect(Collectors.toList());
+        return new ArrayList<>(birds);
     }
 
     public int getAge() {
