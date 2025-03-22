@@ -7,7 +7,6 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.Serial;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static v.yeikovych.util.ValidationUtils.*;
 
@@ -21,21 +20,17 @@ public class Bird implements Extent {
     private String name;
     private int age;
 
+    @SuppressWarnings("all")
     public Bird(Bird bird) {
         this(bird.getName(), bird.getAge());
     }
 
     public Bird(String name, int age) {
-        throwIfAnyFalse(
-                () -> isValidName(name),
-                () -> isValidAge(age)
-        );
-
-        this.name = name;
-        this.age = age;
+        setName(name);
+        setAge(age);
         birds.add(this);
-        SerializationUtil.registerExtent(this, Bird.class);
-        SerializationUtil.writeExtent(Bird.class, birds);
+        SerializationUtil.registerExtent(birds, Bird.class);
+        SerializationUtil.writeExtent();
     }
 
     public static List<Bird> getExtent() {
@@ -47,11 +42,10 @@ public class Bird implements Extent {
     }
 
     public void setAge(int age) {
-        if (isValidAge(age)) {
-            if (this.age != age) {
-                this.age = age;
-                SerializationUtil.writeExtent(Bird.class, birds);
-            }
+        throwIfFalse(() -> isValidAge(age));
+        if (this.age != age) {
+            this.age = age;
+            SerializationUtil.writeExtent();
         }
     }
 
@@ -60,16 +54,15 @@ public class Bird implements Extent {
     }
 
     public void setName(String name) {
-        if (isValidName(name)) {
-            if (!this.name.equals(name)) {
-                this.name = name;
-                SerializationUtil.writeExtent(Bird.class, birds);
-            }
+        throwIfFalse(() -> isValidName(name));
+        if (!name.equals(this.name)) {
+            this.name = name;
+            SerializationUtil.writeExtent();
         }
     }
 
-    public static void allSing() {
-        birds.forEach(bird -> System.out.printf("%s: Singing...\n", bird.getName()));
+    public static List<Bird> getOldBirds() {
+        return birds.stream().filter(bird -> bird.getAge() >= 8).toList();
     }
 
     @Serial

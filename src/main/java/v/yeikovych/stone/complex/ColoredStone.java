@@ -9,7 +9,7 @@ public class ColoredStone extends AbstractStone {
 
     public ColoredStone(long weightGrams, int red, int green, int blue) {
         super(weightGrams);
-        this.color = new RgbColor(red, green, blue);
+        setColor(new RgbColor(red, green, blue));
     }
 
     public RgbColor getColor() {

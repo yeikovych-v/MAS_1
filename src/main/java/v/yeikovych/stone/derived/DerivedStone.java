@@ -10,9 +10,8 @@ public class DerivedStone extends AbstractStone {
 
     public DerivedStone(long weightGrams, double price) {
         super(weightGrams);
+        setPrice(price);
         throwIfAnyFalse(() -> isPositiveOrZero(price));
-
-        this.price = price;
     }
 
     public double getPrice() {
@@ -20,9 +19,8 @@ public class DerivedStone extends AbstractStone {
     }
 
     public void setPrice(double price) {
-        if (isPositiveOrZero(price)) {
-            this.price = price;
-        }
+        throwIfFalse(() -> isPositiveOrZero(price));
+        this.price = price;
     }
 
     public double getPricePerGram() {

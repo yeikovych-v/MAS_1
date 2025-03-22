@@ -8,8 +8,7 @@ public abstract class AbstractStone {
     private long weightGrams;
 
     public AbstractStone(long weightGrams) {
-        throwIfAnyFalse(() -> isPositiveOrZero(weightGrams));
-        this.weightGrams = weightGrams;
+        setWeightGrams(weightGrams);
     }
 
     public long getWeightGrams() {
@@ -17,9 +16,8 @@ public abstract class AbstractStone {
     }
 
     public void setWeightGrams(long weightGrams) {
-        if (isPositiveOrZero(weightGrams)) {
-            this.weightGrams = weightGrams;
-        }
+        throwIfFalse(() -> isPositiveOrZero(weightGrams));
+        this.weightGrams = weightGrams;
     }
 
     public static String getCommonOrigin() {
@@ -27,9 +25,8 @@ public abstract class AbstractStone {
     }
 
     public static void setCommonOrigin(String commonOrigin) {
-        if (isValidString(commonOrigin)) {
-            AbstractStone.commonOrigin = commonOrigin;
-        }
+        throwIfFalse(() -> isValidString(commonOrigin));
+        AbstractStone.commonOrigin = commonOrigin;
     }
 
     public void printStoneInfo() {

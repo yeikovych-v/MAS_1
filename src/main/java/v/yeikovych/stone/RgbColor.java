@@ -11,11 +11,9 @@ public class RgbColor implements Serializable {
     private int blue;
 
     public RgbColor(int red, int green, int blue) {
-        throwIfAnyFalse(() -> isValidRgb(red), () -> isValidRgb(green), () -> isValidRgb(blue));
-
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+        setRed(red);
+        setGreen(green);
+        setBlue(blue);
     }
 
     public int getRed() {
@@ -23,9 +21,8 @@ public class RgbColor implements Serializable {
     }
 
     public void setRed(int red) {
-        if (isValidRgb(red)) {
-            this.red = red;
-        }
+        throwIfFalse(() -> isValidRgb(red));
+        this.red = red;
     }
 
     public int getGreen() {
@@ -33,9 +30,8 @@ public class RgbColor implements Serializable {
     }
 
     public void setGreen(int green) {
-        if (isValidRgb(green)) {
-            this.green = green;
-        }
+        throwIfFalse(() -> isValidRgb(green));
+        this.green = green;
     }
 
     public int getBlue() {
@@ -43,9 +39,8 @@ public class RgbColor implements Serializable {
     }
 
     public void setBlue(int blue) {
-        if (isValidRgb(blue)) {
-            this.blue = blue;
-        }
+        throwIfFalse(() -> isValidRgb(blue));
+        this.blue = blue;
     }
 
     public static boolean isValidRgb(int color) {

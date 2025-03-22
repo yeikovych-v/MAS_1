@@ -1,7 +1,5 @@
 package v.yeikovych.util;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
@@ -62,6 +60,12 @@ public class ValidationUtils {
 
     public static void throwIfAnyFalse(BooleanSupplier... conditions) throws ValidationException {
         if (!allTrue(conditions)) {
+            throw new ValidationException("Validation failed");
+        }
+    }
+
+    public static void throwIfFalse(BooleanSupplier condition) throws ValidationException {
+        if (!condition.getAsBoolean()) {
             throw new ValidationException("Validation failed");
         }
     }

@@ -16,9 +16,9 @@ public class Main {
         System.out.println(price);
         System.out.println(stone.getName());
 
-        var bird1 = new Bird("bird1", 23);
-        var bird2 = new Bird("bird2", 13);
+        var bird1 = new Bird("old Bird", 23);
+        var bird2 = new Bird("young Bird", 7);
 
-        Bird.allSing();
+        System.out.println(Bird.getOldBirds());
     }
 }

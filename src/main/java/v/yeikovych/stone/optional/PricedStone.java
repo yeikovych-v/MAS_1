@@ -11,18 +11,13 @@ public class PricedStone extends AbstractStone {
 
     public PricedStone(long weightGrams, double price) {
         super(weightGrams);
-        throwIfAnyFalse(() -> isPositiveOrZero(price));
-
-        this.price = price;
+        setPrice(price);
     }
 
     public PricedStone(long weightGrams, double price, String name) {
         super(weightGrams);
-        throwIfAnyFalse(
-                () -> isPositiveOrZero(price),
-                () -> isValidNullableName(name)
-        );
-        this.name = name;
+        setPrice(price);
+        setName(name);
     }
 
     public String getName() {
@@ -34,9 +29,8 @@ public class PricedStone extends AbstractStone {
     }
 
     public void setName(String name) {
-        if (isValidNullableName(name)) {
-            this.name = name;
-        }
+        throwIfFalse(() -> isValidNullableName(name));
+        this.name = name;
     }
 
     public double getPrice() {
@@ -44,9 +38,8 @@ public class PricedStone extends AbstractStone {
     }
 
     public void setPrice(double price) {
-        if (isPositiveOrZero(price)) {
-            this.price = price;
-        }
+        throwIfFalse(() -> isPositiveOrZero(price));
+        this.price = price;
     }
 
     @Override
